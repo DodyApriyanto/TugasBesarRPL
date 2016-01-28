@@ -42,9 +42,11 @@ CREATE TABLE `customer_services` (
   `alamat` varchar(35) NOT NULL,
   `notelp` varchar(14) NOT NULL,
   PRIMARY KEY (`idcs`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5003 DEFAULT CHARSET=latin1;
 
 /*Data for the table `customer_services` */
+
+insert  into `customer_services`(`idcs`,`pass`,`nama`,`alamat`,`notelp`) values (5001,'pass5001','Cust','Jl. Dago No. 156 Bandung','087722767654'),(5002,'pass5002','Sadness','Jl. Aceh No. 56 Bandung','082345671234');
 
 /*Table structure for table `kasir` */
 
@@ -57,9 +59,11 @@ CREATE TABLE `kasir` (
   `alamat` varchar(35) NOT NULL,
   `notelp` varchar(14) NOT NULL,
   PRIMARY KEY (`idkasir`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2003 DEFAULT CHARSET=latin1;
 
 /*Data for the table `kasir` */
+
+insert  into `kasir`(`idkasir`,`pass`,`nama`,`alamat`,`notelp`) values (2001,'pass2001','Chef','Jl. Juanda No. 105 Bandung','087734562345'),(2002,'pass2002','Khaki','Jl. Dago No. 10 Bandung','082312345460');
 
 /*Table structure for table `koki` */
 
@@ -72,9 +76,11 @@ CREATE TABLE `koki` (
   `alamat` varchar(35) NOT NULL,
   `notelp` varchar(14) NOT NULL,
   PRIMARY KEY (`idkoki`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3006 DEFAULT CHARSET=latin1;
 
 /*Data for the table `koki` */
+
+insert  into `koki`(`idkoki`,`pass`,`nama`,`alamat`,`notelp`) values (3001,'pass3001','Khan','Jl. Gerlong No. 10 Bandung','087756432341'),(3002,'pass3002','Aaron','Jl. Dipatiukur No. 112 Bandung','081122334239'),(3003,'pass3003','Bea','Jl. Setiabudi No. 57 Bandung','082345678769'),(3004,'pass3004','Jack','Jl. Dago No. 105 Bandung','087834563456'),(3005,'pass3005','Al','Jl. Lewipanjang No. 11 Bandung','081122345624');
 
 /*Table structure for table `kritiksaran` */
 
@@ -167,9 +173,11 @@ CREATE TABLE `pantry` (
   `alamat` varchar(35) NOT NULL,
   `notelp` varchar(14) NOT NULL,
   PRIMARY KEY (`idpantry`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4003 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pantry` */
+
+insert  into `pantry`(`idpantry`,`pass`,`nama`,`alamat`,`notelp`) values (4001,'pass4001','Deasy','Jl. Soekarno Hatta No.105 Bandung','087722765432'),(4002,'pass4002','Hilman','Jl. Kosambi No. 188 Bandung','085723007654');
 
 /*Table structure for table `pelanggan` */
 
@@ -180,9 +188,11 @@ CREATE TABLE `pelanggan` (
   `nama` varchar(25) NOT NULL,
   `nomeja` int(11) NOT NULL,
   PRIMARY KEY (`idpelanggan`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6011 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pelanggan` */
+
+insert  into `pelanggan`(`idpelanggan`,`nama`,`nomeja`) values (6001,'Miftah',1),(6002,'Andrea',5),(6003,'Joy',3),(6004,'Anger',11),(6005,'Disgust',15),(6006,'Katie',20),(6007,'Many',10),(6008,'Hiccup',12),(6009,'Sally',17),(6010,'Brown',7);
 
 /*Table structure for table `pelayan` */
 
@@ -195,9 +205,11 @@ CREATE TABLE `pelayan` (
   `alamat` varchar(35) NOT NULL,
   `notelp` varchar(14) NOT NULL,
   PRIMARY KEY (`idpelayan`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1006 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pelayan` */
+
+insert  into `pelayan`(`idpelayan`,`pass`,`nama`,`alamat`,`notelp`) values (1001,'pass1001','Alfatah','Jl.Sekeloa gg.12 no 2 Bandung','085123321123'),(1002,'pass1002','Legimin','Jl.Bangbayang 12 Bandung','081234561239'),(1003,'pass1003','Raharjo','Jl.Katapang 2 Bandung','087765456798'),(1004,'pass1004','Rahardian','Jl.Banda No.67 Bandung','085678906543'),(1005,'pass1005','Michael','Jl. Aceh N0.57 Bandung','081322334259');
 
 /*Table structure for table `pembayaran` */
 
