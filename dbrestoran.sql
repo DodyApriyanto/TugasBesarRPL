@@ -31,6 +31,8 @@ CREATE TABLE `bahan_baku` (
 
 /*Data for the table `bahan_baku` */
 
+insert  into `bahan_baku`(`kdbahan`,`nama`,`tglmasuk`,`tglexpired`,`qty`) values ('KB0001','Wortel','2015-12-25','2016-01-25',500),('KB0002','Sawi Putih','2015-12-25','2016-01-10',100),('KB0003','Beras','2015-12-25','2016-12-25',100),('KB0004','Bawang Merah','2015-12-25','2016-01-25',100),('KB0005','Bawang Putih','2015-12-25','2016-01-25',100),('KB0006','Bawang Bombay','2015-12-25','2016-01-25',100),('KB0007','Spagheti','2015-12-25','2016-12-25',100),('KB0008','Pisang','2015-12-25','2016-01-08',25),('KB0009','Daging Ayam','2015-12-25','2016-01-15',10),('KB0010','Daging Sapi','2016-01-31','2016-01-15',10);
+
 /*Table structure for table `customer_services` */
 
 DROP TABLE IF EXISTS `customer_services`;
@@ -100,6 +102,8 @@ CREATE TABLE `kritiksaran` (
 
 /*Data for the table `kritiksaran` */
 
+insert  into `kritiksaran`(`kdkritiksaran`,`idcs`,`idpelanggan`,`isi`) values ('KS0001',5001,6002,'tidak ada'),('KS0002',5002,6001,'lebih menarik lagi'),('KS0003',5002,6006,'lebih cepat'),('KS0004',5001,6005,'Lebih banyak menu baru');
+
 /*Table structure for table `laporan` */
 
 DROP TABLE IF EXISTS `laporan`;
@@ -108,15 +112,17 @@ CREATE TABLE `laporan` (
   `kdlaporan` varchar(6) NOT NULL,
   `kdpemesanan` varchar(6) NOT NULL,
   `kdpembayaran` varchar(6) NOT NULL,
-  `nama` varchar(25) NOT NULL,
-  PRIMARY KEY (`kdlaporan`),
-  KEY `Fk7` (`kdpemesanan`),
-  KEY `Fk8` (`kdpembayaran`),
-  CONSTRAINT `Fk7` FOREIGN KEY (`kdpemesanan`) REFERENCES `pemesanan` (`kdpemesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Fk8` FOREIGN KEY (`kdpembayaran`) REFERENCES `pembayaran` (`kdpembayaran`) ON DELETE CASCADE ON UPDATE CASCADE
+  `nama` varchar(50) NOT NULL,
+  PRIMARY KEY (`kdlaporan`,`kdpembayaran`),
+  KEY `Fk8` (`kdpemesanan`),
+  KEY `Fk12` (`kdpembayaran`),
+  CONSTRAINT `Fk12` FOREIGN KEY (`kdpembayaran`) REFERENCES `pembayaran` (`kdpembayaran`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Fk8` FOREIGN KEY (`kdpemesanan`) REFERENCES `pemesanan` (`kdpemesanan`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `laporan` */
+
+insert  into `laporan`(`kdlaporan`,`kdpemesanan`,`kdpembayaran`,`nama`) values ('LP0001','PS0004','PB0001','Laporan Pemesanan dan Pembayaran Tanggal 21'),('LP0001','PS0004','PB0002','Laporan Pemesanan dan Pembayaran Tanggal 21'),('LP0001','PS0004','PB0003','Laporan Pemesanan dan Pembayaran Tanggal 21'),('LP0001','PS0004','PB0004','Laporan Pemesanan dan Pembayaran Tanggal 21'),('LP0002','PS0005','PB0005','Laporan Pemesanan dan Pembayaran Tanggal 22'),('LP0002','PS0006','PB0006','Laporan Pemesanan dan Pembayaran Tanggal 22'),('LP0002','PS0007','PB0007','Laporan Pemesanan dan Pembayaran Tanggal 22'),('LP0002','PS0008','PB0008','Laporan Pemesanan dan Pembayaran Tanggal 22');
 
 /*Table structure for table `menu` */
 
@@ -125,12 +131,14 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `kdmenu` varchar(6) NOT NULL,
   `nama` varchar(25) NOT NULL,
-  `jenis` enum('Appertizer','Maincorse','Dessert','Minuman') NOT NULL,
+  `jenis` enum('Appertizer','Maincorse','Dessert','Drink') NOT NULL,
   `harga` int(11) NOT NULL,
   PRIMARY KEY (`kdmenu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `menu` */
+
+insert  into `menu`(`kdmenu`,`nama`,`jenis`,`harga`) values ('AP0001','Fruit Salad','Appertizer',150000),('AP0002','Shrimp Cocktail Salad','Appertizer',47000),('AP0003','Orange Chicken Salad','Appertizer',38000),('AP0004','Rujak Cuka','Appertizer',27000),('DR0001','Frozen Capucino','Drink',13637),('DR0002','Milkshake Strowberry','Drink',12728),('DR0003','Ice Green Tea','Drink',10000),('DR0004','Orange Juice','Drink',14546),('DR0005','Teh Tarik','Drink',13637),('DR0006','Es Lemonade','Drink',10000),('DR0007','Es Lemon Tea','Drink',10000),('DR0008','Juice Alpukat/Strowberry','Drink',14546),('DR0009','Es Teh Tawar','Drink',4500),('DS0001','Banana Split','Dessert',32000),('DS0002','Ice Cream Sundae','Dessert',34000),('DS0003','Banana Cake','Dessert',23000),('DS0004','Deep Fried Ice Cream','Dessert',26000),('MC0001','Spagheti Olio Oglio','Maincorse',100000),('MC0002','Wiener Schnitzel','Maincorse',70000),('MC0004','Mie Tom Yam','Maincorse',50000),('MC0005','Steak Tenderloin','Maincorse',80000),('MC0006','Nasi Goreng Ikan Bakar','Maincorse',30000),('MC0007','Fettucini Carbonara','Maincorse',50000),('MC0008','Ayam Bakar Madu','Maincorse',36000),('MC0009','Nasi Goreng Ikan Asin','Maincorse',24000);
 
 /*Table structure for table `menubahan` */
 
@@ -139,13 +147,15 @@ DROP TABLE IF EXISTS `menubahan`;
 CREATE TABLE `menubahan` (
   `kdmenu` varchar(6) NOT NULL,
   `kdbahan` varchar(6) NOT NULL,
-  KEY `Fk12` (`kdmenu`),
-  KEY `Fk13` (`kdbahan`),
-  CONSTRAINT `Fk12` FOREIGN KEY (`kdmenu`) REFERENCES `menu` (`kdmenu`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Fk13` FOREIGN KEY (`kdbahan`) REFERENCES `bahan_baku` (`kdbahan`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `Fk14` (`kdmenu`),
+  KEY `Fk15` (`kdbahan`),
+  CONSTRAINT `Fk14` FOREIGN KEY (`kdmenu`) REFERENCES `menu` (`kdmenu`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Fk15` FOREIGN KEY (`kdbahan`) REFERENCES `bahan_baku` (`kdbahan`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `menubahan` */
+
+insert  into `menubahan`(`kdmenu`,`kdbahan`) values ('MC0001','KB0006'),('MC0001','KB0006'),('MC0001','KB0007'),('MC0005','KB0004'),('MC0005','KB0005'),('MC0005','KB0006'),('MC0005','KB0010');
 
 /*Table structure for table `menupesanan` */
 
@@ -154,13 +164,15 @@ DROP TABLE IF EXISTS `menupesanan`;
 CREATE TABLE `menupesanan` (
   `kdpemesanan` varchar(6) NOT NULL,
   `kdmenu` varchar(6) NOT NULL,
-  KEY `Fk14` (`kdpemesanan`),
-  KEY `Fk15` (`kdmenu`),
-  CONSTRAINT `Fk14` FOREIGN KEY (`kdpemesanan`) REFERENCES `pemesanan` (`kdpemesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Fk15` FOREIGN KEY (`kdmenu`) REFERENCES `menu` (`kdmenu`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `Fk18` (`kdpemesanan`),
+  KEY `Fk19` (`kdmenu`),
+  CONSTRAINT `Fk18` FOREIGN KEY (`kdpemesanan`) REFERENCES `pemesanan` (`kdpemesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Fk19` FOREIGN KEY (`kdmenu`) REFERENCES `menu` (`kdmenu`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `menupesanan` */
+
+insert  into `menupesanan`(`kdpemesanan`,`kdmenu`) values ('PS0001','AP0001'),('PS0001','DR0001'),('PS0001','DS0001'),('PS0001','MC0001'),('PS0002','AP0002'),('PS0002','DR0003'),('PS0002','DS0002'),('PS0002','MC0004');
 
 /*Table structure for table `pantry` */
 
@@ -222,15 +234,17 @@ CREATE TABLE `pembayaran` (
   `idpelanggan` int(4) NOT NULL,
   `totalharga` int(11) NOT NULL,
   PRIMARY KEY (`kdpembayaran`),
-  KEY `Fk4` (`kdpemesanan`),
-  KEY `Fk5` (`idkasir`),
-  KEY `Fk6` (`idpelanggan`),
-  CONSTRAINT `Fk4` FOREIGN KEY (`kdpemesanan`) REFERENCES `pemesanan` (`kdpemesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Fk5` FOREIGN KEY (`idkasir`) REFERENCES `kasir` (`idkasir`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Fk6` FOREIGN KEY (`idpelanggan`) REFERENCES `pelanggan` (`idpelanggan`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `Fk5` (`kdpemesanan`),
+  KEY `Fk6` (`idkasir`),
+  KEY `Fk7` (`idpelanggan`),
+  CONSTRAINT `Fk5` FOREIGN KEY (`kdpemesanan`) REFERENCES `pemesanan` (`kdpemesanan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Fk6` FOREIGN KEY (`idkasir`) REFERENCES `kasir` (`idkasir`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Fk7` FOREIGN KEY (`idpelanggan`) REFERENCES `pelanggan` (`idpelanggan`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `pembayaran` */
+
+insert  into `pembayaran`(`kdpembayaran`,`kdpemesanan`,`idkasir`,`idpelanggan`,`totalharga`) values ('PB0001','PS0001',2001,6001,295637),('PB0002','PS0002',2002,6002,141000),('PB0003','PS0003',2001,6003,134546),('PB0004','PS0004',2002,6004,93637),('PB0005','PS0005',2001,6005,134546),('PB0006','PS0006',2002,6006,124637),('PB0007','PS0007',2001,6007,98637),('PB0008','PS0008',2002,6008,166637);
 
 /*Table structure for table `pemesanan` */
 
@@ -241,17 +255,21 @@ CREATE TABLE `pemesanan` (
   `idpelanggan` int(4) NOT NULL,
   `idkoki` int(4) NOT NULL,
   `idpelayan` int(4) NOT NULL,
-  `menupesanan` varchar(20) NOT NULL,
-  PRIMARY KEY (`kdpemesanan`),
+  `kdmenu` varchar(6) NOT NULL,
+  PRIMARY KEY (`kdpemesanan`,`kdmenu`),
   KEY `Fk1` (`idpelanggan`),
   KEY `Fk2` (`idkoki`),
   KEY `Fk3` (`idpelayan`),
+  KEY `Fk4` (`kdmenu`),
   CONSTRAINT `Fk1` FOREIGN KEY (`idpelanggan`) REFERENCES `pelanggan` (`idpelanggan`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Fk2` FOREIGN KEY (`idkoki`) REFERENCES `koki` (`idkoki`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Fk3` FOREIGN KEY (`idpelayan`) REFERENCES `pelayan` (`idpelayan`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Fk3` FOREIGN KEY (`idpelayan`) REFERENCES `pelayan` (`idpelayan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Fk4` FOREIGN KEY (`kdmenu`) REFERENCES `menu` (`kdmenu`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `pemesanan` */
+
+insert  into `pemesanan`(`kdpemesanan`,`idpelanggan`,`idkoki`,`idpelayan`,`kdmenu`) values ('PS0001',6001,3002,1003,'AP0001'),('PS0001',6001,3004,1003,'DR0001'),('PS0001',6001,3003,1003,'DS0001'),('PS0001',6001,3001,1003,'MC0001'),('PS0002',6002,3005,1001,'AP0002'),('PS0002',6002,3001,1001,'DR0003'),('PS0002',6002,3004,1001,'DS0002'),('PS0002',6002,3002,1001,'MC0004'),('PS0003',6003,3003,1004,'AP0003'),('PS0003',6003,3005,1004,'DR0001'),('PS0003',6003,3002,1004,'DS0004'),('PS0003',6003,3004,1004,'MC0007'),('PS0004',6004,3001,1002,'AP0004'),('PS0004',6004,3004,1002,'DR0001'),('PS0004',6004,3003,1002,'DS0003'),('PS0004',6004,3002,1002,'MC0006'),('PS0005',6005,3005,1005,'AP0002'),('PS0005',6005,3002,1005,'DR0004'),('PS0005',6005,3003,1005,'DS0003'),('PS0005',6005,3004,1005,'MC0007'),('PS0006',6006,3002,1003,'AP0003'),('PS0006',6006,3005,1003,'DR0001'),('PS0006',6006,3004,1003,'DS0003'),('PS0006',6006,3003,1003,'MC0007'),('PS0007',6007,3004,1002,'AP0004'),('PS0007',6007,3001,1002,'DR0005'),('PS0007',6007,3002,1002,'DS0002'),('PS0007',6007,3003,1002,'MC0009'),('PS0008',6008,3002,1005,'AP0002'),('PS0008',6008,3005,1005,'DR0001'),('PS0008',6008,3004,1005,'DS0004'),('PS0008',6008,3003,1005,'MC0005'),('PS0009',6009,3002,1001,'AP0004'),('PS0009',6009,3004,1001,'DR0006'),('PS0009',6009,3001,1001,'DS0003'),('PS0009',6009,3005,1001,'MC0001'),('PS0010',6010,3005,1004,'AP0002'),('PS0010',6010,3002,1004,'DR0002'),('PS0010',6010,3004,1004,'DS0001'),('PS0010',6010,3003,1004,'MC0008');
 
 /*Table structure for table `penyetokkan` */
 
@@ -260,16 +278,20 @@ DROP TABLE IF EXISTS `penyetokkan`;
 CREATE TABLE `penyetokkan` (
   `kdstok` varchar(6) NOT NULL,
   `idpantry` int(4) NOT NULL,
-  `nama` varchar(25) NOT NULL,
+  `kdbahan` varchar(6) NOT NULL,
   `tglmasuk` date NOT NULL,
   `tglexpired` date NOT NULL,
   `qty` int(11) NOT NULL,
   PRIMARY KEY (`kdstok`),
   KEY `Fk9` (`idpantry`),
+  KEY `Fk13` (`kdbahan`),
+  CONSTRAINT `Fk13` FOREIGN KEY (`kdbahan`) REFERENCES `bahan_baku` (`kdbahan`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Fk9` FOREIGN KEY (`idpantry`) REFERENCES `pantry` (`idpantry`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `penyetokkan` */
+
+insert  into `penyetokkan`(`kdstok`,`idpantry`,`kdbahan`,`tglmasuk`,`tglexpired`,`qty`) values ('KS0001',4001,'KB0002','2015-12-25','2016-01-10',100),('KS0002',4002,'KB0008','2015-12-25','2016-01-28',25);
 
 /*Table structure for table `stokbahan` */
 
@@ -285,6 +307,8 @@ CREATE TABLE `stokbahan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `stokbahan` */
+
+insert  into `stokbahan`(`kdbahan`,`kdstok`) values ('KB0002','KS0001'),('KB0008','KS0002');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
