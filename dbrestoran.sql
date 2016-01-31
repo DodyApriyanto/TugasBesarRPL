@@ -291,7 +291,7 @@ CREATE TABLE `penyetokkan` (
 
 /*Data for the table `penyetokkan` */
 
-insert  into `penyetokkan`(`kdstok`,`idpantry`,`kdbahan`,`tglmasuk`,`tglexpired`,`qty`) values ('KS0001',4001,'KB0002','2015-12-25','2016-01-10',100),('KS0002',4002,'KB0008','2015-12-25','2016-01-28',25);
+insert  into `penyetokkan`(`kdstok`,`idpantry`,`kdbahan`,`tglmasuk`,`tglexpired`,`qty`) values ('KS0001',4001,'KB0002','2015-12-25','2016-01-10',100),('KS0002',4002,'KB0008','2015-12-25','2016-01-28',25),('KS0003',4001,'KB0009','2015-12-25','2016-01-15',10);
 
 /*Table structure for table `stokbahan` */
 
@@ -308,7 +308,7 @@ CREATE TABLE `stokbahan` (
 
 /*Data for the table `stokbahan` */
 
-insert  into `stokbahan`(`kdbahan`,`kdstok`) values ('KB0002','KS0001'),('KB0008','KS0002');
+insert  into `stokbahan`(`kdbahan`,`kdstok`) values ('KB0002','KS0001'),('KB0008','KS0002'),('KB0009','KS0003');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
